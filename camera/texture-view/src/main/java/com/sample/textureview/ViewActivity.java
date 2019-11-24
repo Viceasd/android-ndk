@@ -42,6 +42,7 @@ import static android.hardware.camera2.CameraMetadata.LENS_FACING_BACK;
 public class ViewActivity extends Activity
         implements TextureView.SurfaceTextureListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
+    private static final String LOG_TAG = "123456";
     long ndkCamera_;
     private TextureView textureView_;
     Surface surface_ = null;
@@ -122,6 +123,11 @@ public class ViewActivity extends Activity
         if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
             newHeight = (textureWidth * cameraPreviewSize_.getHeight()) / cameraPreviewSize_.getWidth();
         }
+        Log.i(ViewActivity.LOG_TAG, "viewWidth: " + newWidth + "   newHeight: " + newHeight +
+                "   ratio: " + (float)newWidth/(float)newHeight);
+        Log.i(ViewActivity.LOG_TAG, "previewWidth: " + textureView_.getWidth() +
+                "   previewHeight: " + textureView_.getHeight() + "   ratio: " +
+                (float)textureView_.getWidth()/(float)textureView_.getHeight() + "   rotation: "+rotation);
         textureView_.setLayoutParams(
                 new FrameLayout.LayoutParams(newWidth, newHeight, Gravity.CENTER));
         configureTransform(newWidth, newHeight);
@@ -135,7 +141,7 @@ public class ViewActivity extends Activity
      * @param height is TextureView height
      */
     void configureTransform(int width, int height) {
-        int mDisplayOrientation = getWindowManager().getDefaultDisplay().getRotation() * 90;
+        int mDisplayOrientation = getWindowManager().getDefaultDisplay().getRotation() + 90;
         Matrix matrix = new Matrix();
         if (mDisplayOrientation % 180 == 90) {
             //final int width = getWidth();
@@ -167,6 +173,9 @@ public class ViewActivity extends Activity
         } else if (mDisplayOrientation == 180) {
             matrix.postRotate(180, width / 2, height / 2);
         }
+        Log.i(ViewActivity.LOG_TAG, "previewWidth: " + textureView_.getWidth() +
+                "   previewHeight: " + textureView_.getHeight() + "   ratio: " +
+                (float)textureView_.getWidth()/(float)textureView_.getHeight() + "   rotation: "+mDisplayOrientation);
         textureView_.setTransform(matrix);
     }
 
