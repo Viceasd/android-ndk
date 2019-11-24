@@ -26,8 +26,8 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -234,7 +234,7 @@ public class ViewActivity extends Activity
         int height = display.getMode().getPhysicalHeight();
         int width = display.getMode().getPhysicalWidth();
 
-        ndkCamera_ = createCamera(width, height);
+        ndkCamera_ = createCamera( height,width);
 
         cameraPreviewSize_ = getMinimumCompatiblePreviewSize(ndkCamera_);
 

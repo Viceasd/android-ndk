@@ -220,8 +220,8 @@ bool NDKCamera::MatchCaptureSizeRequest(int32_t requestWidth,
     LOGW("Did not find any compatible camera resolution, taking 640x480 2");
     if (disp.IsPortrait()) {
         LOGW(" es portrait");
-      resView->width = 640;
-      resView->height = 480;
+      resView->width = 480;
+      resView->height = 640;
     } else {
       resView->width = 640;
       resView->height = 480;
